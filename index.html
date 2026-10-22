@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://adsun.io/adsun.min.js"></script>
+  <title>Adsun example</title>
+  <style>body{font-family:system-ui;padding:24px;max-width:420px;margin:auto}button{padding:14px 18px;font-size:16px;border-radius:12px;border:0;background:#2481cc;color:#fff;width:100%}</style>
+</head>
+<body>
+  <h1>Level <span id="lvl">1</span></h1>
+  <button id="next">Next level</button>
+<script>
+  const ad = window.Adsun.init({ blockId: "YOUR_BLOCK_ID", debug: true, debugBannerType: "FullscreenMedia" });
+  let lvl = 1, last = 0;
+  const go = () => { lvl++; document.getElementById("lvl").textContent = lvl; };
+  document.getElementById("next").onclick = () => {
+    // show at most once every 60 s, and only every 3rd level
+    if (lvl % 3 === 0 && Date.now() - last > 60000) {
+      last = Date.now();
+      ad.show().finally(go);
+    } else go();
+  };
+</script>
+</body>
+</html>
